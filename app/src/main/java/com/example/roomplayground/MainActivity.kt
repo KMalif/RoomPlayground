@@ -4,8 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.roomplayground.adapter.NoteAdapter
+import com.example.roomplayground.room.Note
 import com.example.roomplayground.room.NoteDB
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -43,7 +45,11 @@ import kotlinx.coroutines.withContext
     }
 
      fun setupRecycler(){
-        noteAdapter = NoteAdapter(arrayListOf())
+        noteAdapter = NoteAdapter(arrayListOf(), object : NoteAdapter.onAdapterListener{
+            override fun onClick(note: Note) {
+                Toast.makeText(applicationContext, note.title, Toast.LENGTH_LONG).show()
+            }
+        })
          rvNote.apply {
              layoutManager = LinearLayoutManager(applicationContext)
              adapter = noteAdapter

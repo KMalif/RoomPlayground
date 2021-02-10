@@ -8,7 +8,7 @@ import com.example.roomplayground.R
 import com.example.roomplayground.room.Note
 import kotlinx.android.synthetic.main.notes_item.view.*
 
-class NoteAdapter(private val notes : ArrayList<Note>):RecyclerView.Adapter<NoteAdapter.noteViewHolder>() {
+class NoteAdapter(private val notes : ArrayList<Note>, private val listener : onAdapterListener):RecyclerView.Adapter<NoteAdapter.noteViewHolder>() {
 
 
 
@@ -23,6 +23,9 @@ class NoteAdapter(private val notes : ArrayList<Note>):RecyclerView.Adapter<Note
     override fun onBindViewHolder(holder: noteViewHolder, position: Int) {
         val note = notes[position]
         holder.view.tvTitle.text = note.title
+        holder.itemView.setOnClickListener {
+            listener.onClick(note)
+        }
 
     }
 
@@ -32,5 +35,9 @@ class NoteAdapter(private val notes : ArrayList<Note>):RecyclerView.Adapter<Note
         notes.clear()
         notes.addAll(list)
         notifyDataSetChanged()
+    }
+
+    interface onAdapterListener{
+        fun onClick(note : Note)
     }
 }
