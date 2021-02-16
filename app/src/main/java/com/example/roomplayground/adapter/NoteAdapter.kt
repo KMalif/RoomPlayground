@@ -1,19 +1,17 @@
 package com.example.roomplayground.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.roomplayground.R
+import com.example.roomplayground.databinding.NotesItemBinding
 import com.example.roomplayground.room.Note
-import kotlinx.android.synthetic.main.notes_item.view.*
 
 class NoteAdapter(private val notes : ArrayList<Note>, private val listener : onAdapterListener):RecyclerView.Adapter<NoteAdapter.noteViewHolder>() {
 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): noteViewHolder {
-        return noteViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.notes_item, parent, false))
+        return noteViewHolder(NotesItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -22,14 +20,14 @@ class NoteAdapter(private val notes : ArrayList<Note>, private val listener : on
 
     override fun onBindViewHolder(holder: noteViewHolder, position: Int) {
         val note = notes[position]
-        holder.view.tvTitle.text = note.title
+        holder.binding.tvTitle.text = note.title
         holder.itemView.setOnClickListener {
             listener.onClick(note)
         }
 
     }
 
-    class noteViewHolder (val view: View):RecyclerView.ViewHolder(view)
+    class noteViewHolder (val binding: NotesItemBinding):RecyclerView.ViewHolder(binding.root)
 
     fun setData(list : List<Note>){
         notes.clear()
